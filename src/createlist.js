@@ -1,10 +1,8 @@
-import renderItem from "./listItem"
-import appendToProject from "./project"
+import createItem from "./listItem"
 
-function creationWindow() {
+function creationWindow(project) {
 
-        //-------------------------------------------------
-        const testing = document.getElementById("testing");
+    const content = document.getElementById("content");
         //-------------------------------------------------
 
     const creationWindow = document.createElement("div");
@@ -31,20 +29,14 @@ function creationWindow() {
 
     creationWindow.appendChild(buttonWindow);
 
-    testing.appendChild(creationWindow);
+    content.appendChild(creationWindow);
 
-    return testing;
-}
-
-function listItem(name,description,date) {
-    this.name = name
-    this.description = description
-    this.date = date
-}
+    //Exported function that creates the item.
 
 function newListItem() {
-    const testing = document.getElementById("testing");
-    const item = new listItem(document.getElementById("title").value,
+
+    const content = document.getElementById("content");
+    const item = new ListItem(document.getElementById("title").value,
             document.getElementById("description").value,
             document.getElementById("due").value);
 
@@ -52,8 +44,14 @@ function newListItem() {
         alert("Please complete all forms.");
         return;
     }
-    renderItem(item);
-    testing.removeChild(testing.firstChild);
+    content.removeChild(content.firstChild);
+    project.push(createItem(item))
+}
+
+function ListItem(name,description,date) {
+    this.name = name
+    this.description = description
+    this.date = date
 }
 
 function paragraph(text) {
@@ -73,13 +71,12 @@ function createButton(buttonText, buttonID, buttonFunction) {
     button.setAttribute('id', buttonID);
     button.textContent = buttonText;
     button.addEventListener("click", () =>
-        buttonFunction());
+        buttonFunction())
     return button;
 }
 
 function cancelCreation() {
-    const testing = document.getElementById("testing");
-    testing.innerText = '';
+    const content = document.getElementById("content");
+    content.innerText = '';
 }
-
-export default creationWindow;
+}
