@@ -6,7 +6,6 @@ export default function Project(name) {
     
     //Renders project to the window
     this.load = function load() {
-        console.log(this.name +" loaded")
         const projectPage = document.createElement("div")
         const itemWindow = document.createElement("div")
         itemWindow.setAttribute("id","itemWindow")

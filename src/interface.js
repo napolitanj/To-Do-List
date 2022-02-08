@@ -12,26 +12,22 @@ function userInterface() {
     //Initialization
     
     const projects = []
-
+    projects.forEach(e => projectsFolder.appendChild(projectLink(e)))
+    
     const today = new Project("Today");
     const thisWeek = new Project("This Week")
-    
-    loadProject(today.load());
 
     const todayLink = document.getElementById("today");
     todayLink.addEventListener("click", () => loadProject(today.load()))
     
     const weekLink = document.getElementById("week");
     weekLink.addEventListener("click", () => loadProject(thisWeek.load()))
-
-    
     
     //Loads selected project to the DOM
     function loadProject(project) {
         activeProjectWindow.innerText='';
         activeProjectWindow.appendChild(project);
     }
-
 
     //Creates button to add a new project 
     function addTool() {
@@ -81,15 +77,6 @@ function userInterface() {
         window.appendChild(input)
         window.appendChild(cancel)
         projectsFolder.appendChild(window);
-    }
-
-    //Renders link in DOM folder
-    function projectLink(project) {
-        const projectName = document.createElement("p")
-        projectName.textContent = project.name;
-        projectName.addEventListener("click", () => loadProject(project));
-    
-        return projectName;
     }
     
     //Stores a page
