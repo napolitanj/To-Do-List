@@ -38,6 +38,10 @@ body {
     flex-direction:column;
 }
 
+.projectsHeader {
+    font-size:44px;
+}
+
 .hoverItem {
     padding:10px;
     font-size:20px;
@@ -93,4 +97,24 @@ body {
     display:flex;
     flex-direction:row;
     gap:15px;
+}
+
+.projectLink {
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.editIcon {
+    width:100%;
+    max-width:20px;
+    max-height:20px;
+}
+
+.icons {
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    align-items:center;
 }

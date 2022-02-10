@@ -1,67 +1,142 @@
 import Project from "./project"
+import ListItem from "./listItem"
 
 function userInterface() {
-
-    //Projects Folder in DOM
-    const activeProjectWindow = document.getElementById("activeProject")
-    const projectsFolder = document.getElementById("projectsFolder");
-
-    projectsFolder.classList.add("projectsFolder");
-    projectsFolder.appendChild(addTool());
-
+    
     //Initialization
-    
-    const projects = []
-    projects.forEach(e => projectsFolder.appendChild(projectLink(e)))
-    
+    const projectsFolder = document.getElementById("projectsFolder");
+    const projects = [] 
+
     const today = new Project("Today");
     const thisWeek = new Project("This Week")
-
     const todayLink = document.getElementById("today");
-    todayLink.addEventListener("click", () => loadProject(today.load()))
-    
     const weekLink = document.getElementById("week");
-    weekLink.addEventListener("click", () => loadProject(thisWeek.load()))
-    
-    //Loads selected project to the DOM
-    function loadProject(project) {
-        activeProjectWindow.innerText='';
-        activeProjectWindow.appendChild(project);
+    const addTool = document.getElementById("addNewProject")
+
+    todayLink.addEventListener("click", () => activateProject(today))
+    weekLink.addEventListener("click", () => activateProject(thisWeek))
+    addTool.addEventListener("click", () => addProject())
+
+    projectList();
+
+    //Renders list of projects
+    function projectList() {  
+        projectsFolder.innerText ="";
+        projects.forEach(e => projectsFolder.appendChild(projectLink(e)))
     }
 
-    //Creates button to add a new project 
-    function addTool() {
-        const addTool = document.createElement("p");
-        addTool.classList.add("hoverItem")
-        addTool.setAttribute("id","addNewProject")
-        addTool.innerText = "+ Add Project";
-        addTool.addEventListener("click", () => newProjectInput())
-        return addTool;
+    //Creates button in the Project Window to add a new item
+    function newItem(project) {
+        const newItem = document.createElement("p")
+        newItem.classList.add("renderedItem");
+        newItem.textContent = "+ Add item";
+        newItem.addEventListener("click", () => creationWindow(project));
+        return newItem;
     }
     
-    //Clickable link in projects folder upon creation
+    //Renders projects in the window when clicked in the menu
+    function activateProject(project) {
+        const header = document.getElementById("headerText")
+        const itemList = document.getElementById("itemList");
+        itemList.textContent = "";
+        header.textContent = project.name;
+        project.items.forEach(item => itemList.appendChild(renderItem(item)));
+        itemList.appendChild(newItem(project));
+    }
+
     function projectLink(project) {
         const projectName = document.createElement("p")
         projectName.textContent = project.name;
-        projectName.addEventListener("click", () => loadProject(project.load()));
+        projectName.addEventListener("click", () => activateProject(project));
         return projectName;
     }
 
-    //Function for adding a project
-    function newProjectInput(){
+    //Renders item created by popup window
+    function renderItem(item) {
+        const newItem = document.createElement("div");
+        const newItemText = document.createElement("div");
+        const name = paragraph(item.name);
+        const description = paragraph(item.description)
+        const date = paragraph(item.date);
+        const remove = paragraph("X");
+
+        newItem.classList.add("renderedItem")
+        newItemText.classList.add("renderedItemText");
+        remove.addEventListener("click", () => remove.parentElement.remove())
         
-        //Window + input and cancel button
+        newItemText.appendChild(name)
+        newItemText.appendChild(description)
+        newItem.appendChild(newItemText);
+        newItem.appendChild(date)
+        newItem.appendChild(remove);
+
+        return newItem;
+    }
+
+    //Popup window for creation of an item
+    function creationWindow(project) {
+        const content = document.getElementById("creationWindow");
+        const creationWindow = document.createElement("div");
+        const buttonWindow = document.createElement("div");
+        const datePicker = document.createElement("input");
+        const addButton = createButton("Add", "add")
+        const cancelButton = createButton("Cancel", "cancel");
+
+        creationWindow.classList.add("creationWindow");
+        buttonWindow.classList.add("creationButtons");
+        datePicker.setAttribute('type', "date");
+        datePicker.setAttribute('id','due');
+        addButton.addEventListener("click", () => newListItem(project));
+        cancelButton.addEventListener("click", () => cancelCreation());
+
+        buttonWindow.appendChild(addButton);
+        buttonWindow.appendChild(cancelButton);
+        creationWindow.appendChild(paragraph("Title:"))
+        creationWindow.appendChild(createInputField("title"));
+        creationWindow.appendChild(paragraph("Description:"))
+        creationWindow.appendChild(createInputField("description"));
+        creationWindow.appendChild(paragraph("Due By:"))
+        creationWindow.appendChild(datePicker);
+        creationWindow.appendChild(buttonWindow);
+        content.appendChild(creationWindow);
+        
+        return content;
+    }
+
+    //Creates a new item using information in the popup window.
+    function newListItem(project) {
+        
+        const content = document.getElementById("creationWindow");
+        const item = new ListItem(document.getElementById("title").value,
+            document.getElementById("description").value,
+            document.getElementById("due").value);
+
+        if (item.title === "" || item.description === "" || item.due === "") {
+            alert("Please complete all forms.");
+            return;
+        }
+
+        content.removeChild(content.firstChild);
+        project.items.push(item);
+        activateProject(project);
+    }
+
+    //Function for adding a project
+    function addProject(){
         const cancel = document.createElement("p");
+        const window = document.createElement("div");
+        const input = document.createElement("input");
+        addTool.style.visibility = "hidden"
+        
         cancel.textContent = "X"
         cancel.addEventListener("click", () => cancelButton());
-        projectsFolder.removeChild(addNewProject)
-        const window = document.createElement("div");
+        
         window.classList.add("projectInputWindow");
-        const input = document.createElement("input");
+        
         input.setAttribute("id","newProject")
         function cancelButton() {
             projectsFolder.removeChild(window)
-            projectsFolder.appendChild(addTool())
+            addTool.style.visibility="visible";
         }
 
         //Fires creation of projects
@@ -69,19 +144,69 @@ function userInterface() {
             if (e.keyCode === 13) {
                 const newProject = new Project(input.value);
                 projects.push(newProject);
-                projectsFolder.appendChild(projectLink(newProject));
                 cancelButton();
+                projectList();
             }
         })
 
         window.appendChild(input)
         window.appendChild(cancel)
         projectsFolder.appendChild(window);
+       
+    }
+
+    //Edit Project Name
+    // function editText(text,project) {
+    //     let originalText = text.textContent;
+    //     text.textContent="";
+    //     let input = document.createElement("input");
+    //     input.setAttribute("id","newProject")
+    //     text.appendChild(input);
+    //     input.placeholder = originalText;
+    //     return input.addEventListener('keydown', (e) => {
+    //         if (e.keyCode === 13) {
+    //             let newProjectName = input.value;
+    //             text.removeChild(input)
+    //             console.log(activeProject,project)
+    //             if (activeProject=project){
+    //                 project.name = newProjectName;
+    //                 text.innerText = newProjectName;
+    //                 loadProject(project.load());
+    //             }
+    //             else {
+    //                 project.name = newProjectName;
+    //                 text.innerText = newProjectName;
+    //             }
+    //         }
+    //     })
+    // }
+    
+    //Creates paragraphs
+    function paragraph(text) {
+        const e = document.createElement("p");
+        e.textContent = text;
+        return e;
     }
     
-    //Stores a page
-    function storePage(name) {
-        localStorage.setItem(String(name), JSON.stringify(projects));
+    //Creates input fields
+    function createInputField(fieldID) {
+        const field = document.createElement("input");
+        field.setAttribute('id', fieldID)
+        return field;
+    }
+    
+    //Creates buttons
+    function createButton(buttonText, buttonID) {
+        const button = document.createElement("button");
+        button.setAttribute('id', buttonID);
+        button.textContent = buttonText;
+        return button;
+    }
+    
+    //Cancel button for creation window
+    function cancelCreation() {
+        const content = document.getElementById("creationWindow");
+        content.innerText = '';
     }
 }
 

@@ -5,6 +5,12 @@ This application is for The Odin Project's "To Do List" Project.
 My goal with this project is to demonstrate proficiency with webpack, npm, modules, object oriented programming, etc.
 
 -----------
+Version 0.5
+-----------
+
+Code consolidated into appropriate modules, cleaned up.
+
+-----------
 Version 0.4
 -----------
 
