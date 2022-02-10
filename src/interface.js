@@ -5,7 +5,7 @@ function userInterface() {
     
     //Initialization
     const projectsFolder = document.getElementById("projectsFolder");
-    const projects = [] 
+    let projects = [] 
 
     const today = new Project("Today");
     const thisWeek = new Project("This Week")
@@ -17,12 +17,11 @@ function userInterface() {
     weekLink.addEventListener("click", () => activateProject(thisWeek))
     addTool.addEventListener("click", () => addProject())
 
-    projectList();
-
     //Renders list of projects
     function projectList() {  
         projectsFolder.innerText ="";
         projects.forEach(e => projectsFolder.appendChild(projectLink(e)))
+        sP();
     }
 
     //Creates button in the Project Window to add a new item
@@ -40,19 +39,28 @@ function userInterface() {
         const itemList = document.getElementById("itemList");
         itemList.textContent = "";
         header.textContent = project.name;
-        project.items.forEach(item => itemList.appendChild(renderItem(item)));
+        project.items.forEach(item => listItems(project));
         itemList.appendChild(newItem(project));
+        sP();
     }
 
+    //Renders list of items for any given project
+    function listItems(project) {
+        project.items.forEach(item => itemList.appendChild(renderItem(project,item)));
+        sP();
+    }
+
+    //Creates a link to a project in the menu
     function projectLink(project) {
         const projectName = document.createElement("p")
         projectName.textContent = project.name;
         projectName.addEventListener("click", () => activateProject(project));
+        sP();
         return projectName;
     }
 
     //Renders item created by popup window
-    function renderItem(item) {
+    function renderItem(project,item) {
         const newItem = document.createElement("div");
         const newItemText = document.createElement("div");
         const name = paragraph(item.name);
@@ -62,14 +70,15 @@ function userInterface() {
 
         newItem.classList.add("renderedItem")
         newItemText.classList.add("renderedItemText");
-        remove.addEventListener("click", () => remove.parentElement.remove())
-        
+
         newItemText.appendChild(name)
         newItemText.appendChild(description)
         newItem.appendChild(newItemText);
         newItem.appendChild(date)
+        remove.addEventListener("click", () => project.items.splice(item))
         newItem.appendChild(remove);
-
+        
+        sP();
         return newItem;
     }
 
@@ -119,6 +128,7 @@ function userInterface() {
         content.removeChild(content.firstChild);
         project.items.push(item);
         activateProject(project);
+        sP();
     }
 
     //Function for adding a project
@@ -146,6 +156,7 @@ function userInterface() {
                 projects.push(newProject);
                 cancelButton();
                 projectList();
+                sP();
             }
         })
 
@@ -208,6 +219,22 @@ function userInterface() {
         const content = document.getElementById("creationWindow");
         content.innerText = '';
     }
+
+    //Save Projects
+    function sP() {
+        localStorage.setItem('storedProjects',JSON.stringify(projects))
+        console.log("store", projects)
+    }
+
+    //Load Projects
+    function lP(){
+        projects = JSON.parse(localStorage.getItem('storedProjects'))
+        console.log(projects)
+        projectList();
+    }
+
+    lP();
 }
+
 
 export default userInterface;
