@@ -5,6 +5,17 @@ This application is for The Odin Project's "To Do List" Project.
 My goal with this project is to demonstrate proficiency with webpack, npm, modules, object oriented programming, etc.
 
 -----------
+Version 0.7
+-----------
+
+The application allows the user to remove projects and edit their names.
+
+Needs:
+- Ability to edit items.
+- Automatically creates folders for today + this week based on date.
+- Ability to sort items by date / alphabetically / click and drag, etc.
+
+-----------
 Version 0.6
 -----------
 

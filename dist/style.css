@@ -38,8 +38,12 @@ body {
     flex-direction:column;
 }
 
-.projectsHeader {
-    font-size:44px;
+.projectHeader {
+    font-size:24px;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    gap:20px;
 }
 
 .hoverItem {
@@ -62,7 +66,7 @@ body {
     top:20%;
     left:40%;
     width:auto;
-    height:300px;
+    height:auto;
     background-color:black;
     padding:20px;
     border:2px solid grey;
@@ -106,7 +110,7 @@ body {
     align-items:center;
 }
 
-.editIcon {
+.icon {
     width:100%;
     max-width:20px;
     max-height:20px;
