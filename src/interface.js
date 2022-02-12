@@ -1,9 +1,6 @@
 import Project from "./project"
 import ListItem from "./listItem"
-<<<<<<< HEAD
 import {toDate, isToday} from "date-fns"
-=======
->>>>>>> bc5d0250845e02704ff0ff81c13d399326a06146
 
 function userInterface() {
     
@@ -11,18 +8,12 @@ function userInterface() {
     const projectsFolder = document.getElementById("projectsFolder");
     const itemList = document.getElementById("itemList");
     let projects = [] 
-<<<<<<< HEAD
     let today = new Project("Today");
     let thisWeek = new Project("This Week");
     
     lP();
     projectList();
     
-=======
-
-    const today = new Project("Today");
-    const thisWeek = new Project("This Week")
->>>>>>> bc5d0250845e02704ff0ff81c13d399326a06146
     const todayLink = document.getElementById("today");
     const weekLink = document.getElementById("week");
     const addTool = document.getElementById("addNewProject")
@@ -32,11 +23,7 @@ function userInterface() {
     addTool.addEventListener("click", () => addProject())
 
     //Renders list of projects
-<<<<<<< HEAD
     function projectList() { 
-=======
-    function projectList() {  
->>>>>>> bc5d0250845e02704ff0ff81c13d399326a06146
         projectsFolder.innerText ="";
         projects.forEach(e => projectsFolder.appendChild(projectLink(e)))
         sP();
@@ -108,25 +95,15 @@ function userInterface() {
         newItem.appendChild(newItemText);
         newItem.appendChild(date)
         newItem.appendChild(remove);
-<<<<<<< HEAD
         remove.addEventListener("click", () => deleteItem(newItem,project,item))
         console.log(project.items)
-=======
-        remove.addEventListener("click", () => removeItem(newItem,project,item))
-
->>>>>>> bc5d0250845e02704ff0ff81c13d399326a06146
         return newItem;
     }
 
     //Removes item from a list
-<<<<<<< HEAD
     function deleteItem(e,project,item) {
         let deletedItem = item;
         project.items = project.items.filter((item) => item !== deletedItem)
-=======
-    function removeItem(e,project,item) {
-        project.items.splice(item)
->>>>>>> bc5d0250845e02704ff0ff81c13d399326a06146
         itemList.removeChild(e);
         sP();
     }
@@ -143,11 +120,7 @@ function userInterface() {
         creationWindow.classList.add("creationWindow");
         buttonWindow.classList.add("creationButtons");
         datePicker.setAttribute('type', "date");
-<<<<<<< HEAD
         datePicker.setAttribute('id','date');
-=======
-        datePicker.setAttribute('id','due');
->>>>>>> bc5d0250845e02704ff0ff81c13d399326a06146
         addButton.addEventListener("click", () => newListItem(project));
         cancelButton.addEventListener("click", () => cancelCreation());
         popup.style.padding = "20px;"
@@ -172,15 +145,9 @@ function userInterface() {
         const content = document.getElementById("creationWindow");
         const item = new ListItem(document.getElementById("title").value,
             document.getElementById("description").value,
-<<<<<<< HEAD
             document.getElementById("date").value);
 
         if (item.title === "" || item.description === "" || item.date === "") {
-=======
-            document.getElementById("due").value);
-
-        if (item.title === "" || item.description === "" || item.due === "") {
->>>>>>> bc5d0250845e02704ff0ff81c13d399326a06146
             alert("Please complete all forms.");
             return;
         }
@@ -228,10 +195,6 @@ function userInterface() {
 
     //Edit Project name
     function editProjectName(project) {
-<<<<<<< HEAD
-=======
-        const projectHeader = document.getElementById("projectHeader")
->>>>>>> bc5d0250845e02704ff0ff81c13d399326a06146
         const headerText = document.getElementById("headerText")
         const originalText = headerText.textContent;
         const editIcon = document.getElementById("editIcon");
@@ -245,13 +208,7 @@ function userInterface() {
 
         editIcon.src="";
         trashIcon.src="";
-<<<<<<< HEAD
     
-=======
-        
-        
-
->>>>>>> bc5d0250845e02704ff0ff81c13d399326a06146
         return input.addEventListener('keydown', (e) => {
             if (e.keyCode === 13) {
                 if (input.value === "") {
@@ -291,10 +248,6 @@ function userInterface() {
     
     //Deletes the project
     function deleteProject(project) {
-<<<<<<< HEAD
-=======
-        
->>>>>>> bc5d0250845e02704ff0ff81c13d399326a06146
         cancelCreation();
         projects = projects.filter(e => e.name !== project.name)
         refreshDisplay();
@@ -313,7 +266,6 @@ function userInterface() {
 
         projectList();
     }
-<<<<<<< HEAD
     //START HERE updating today
     //Adds any projects on today's date to today list
     function updateToday() {
@@ -334,8 +286,6 @@ function userInterface() {
             })
         }
     }
-=======
->>>>>>> bc5d0250845e02704ff0ff81c13d399326a06146
 
     //Creates paragraphs
     function paragraph(text) {
@@ -362,10 +312,6 @@ function userInterface() {
     function cancelCreation() {
         const popup = document.getElementById("creationWindow");
         popup.innerText = '';
-<<<<<<< HEAD
-=======
-        console.log(popup)
->>>>>>> bc5d0250845e02704ff0ff81c13d399326a06146
         popup.style.padding= "0px";
     }
 
@@ -378,15 +324,9 @@ function userInterface() {
     function lP(){
         projects = JSON.parse(localStorage.getItem('storedProjects'))
         projectList();
-<<<<<<< HEAD
         updateToday();
     }
 
-=======
-    }
-
-    lP();
->>>>>>> bc5d0250845e02704ff0ff81c13d399326a06146
 }
 
 
