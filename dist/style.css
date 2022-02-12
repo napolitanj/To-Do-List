@@ -1,0 +1,124 @@
+body {
+    font-family: 'promima-nova', sans-serif;
+    margin:0px;
+    display:flex;
+    flex-direction:column;
+    color:white;
+}
+
+.header {
+    padding:20px;
+    padding-left:50px;
+    background-color:#202124;
+    font-family: 'promima-nova', sans-serif;
+    height:80px;
+    justify-content:center;
+    border-bottom:2px black solid;
+}
+
+.interface {
+    display:flex;
+    flex-direction:row;
+}
+
+.mainMenu {
+    border-right: solid 2px black;
+    background-color:#303134;
+    width:35%;
+    height:840px;
+    padding:30px;
+    padding-top:40px;
+}
+
+.activeProject {
+    padding:40px;
+    background-color:grey;
+    width:70%;
+    display:flex;
+    flex-direction:column;
+}
+
+.projectHeader {
+    font-size:24px;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    gap:20px;
+}
+
+.hoverItem {
+    padding:10px;
+    font-size:20px;
+}
+
+.hoverItem:hover {
+    background-color:#888888;
+    transform: translateY(2px);
+}
+
+.hoverItem:active {
+    background-color:#888888;
+    transform: translateY(4px);
+}
+
+.creationWindow {
+    position:absolute;
+    top:20%;
+    left:40%;
+    width:auto;
+    height:auto;
+    background-color:black;
+    padding:20px;
+    border:2px solid grey;
+}
+
+.creationButtons {
+    display:flex;
+    flex-direction:row;
+    margin:20px;
+    gap:30px;
+    justify-content:center;
+}
+
+.renderedItem {
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+}
+
+.renderedItemText{
+    font-family: 'promima-nova', sans-serif;
+    font: 20px;
+    display:flex;
+    flex-direction:row;
+    justify-content:flex-start;
+    align-items:center;
+    text-align:center;
+    gap:20px;
+}
+
+.projectInputWindow{
+    display:flex;
+    flex-direction:row;
+    gap:15px;
+}
+
+.projectLink {
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.icon {
+    width:100%;
+    max-width:20px;
+    max-height:20px;
+}
+
+.icons {
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    align-items:center;
+}
