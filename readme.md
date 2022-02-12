@@ -43,7 +43,7 @@ The application now works for projects added.
 Version 0.3
 -----------
 
-The application now allows the user to switch between projects Today and This Week while storing what informatio
+The application now allows the user to switch between projects Today and This Week while storing what information.
 
 -----------
 Version 0.2
