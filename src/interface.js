@@ -1,6 +1,6 @@
 import Project from "./project"
 import ListItem from "./listItem"
-import {toDate, isToday} from "date-fns"
+import {format, isToday} from "date-fns"
 
 function userInterface() {
     
@@ -9,17 +9,15 @@ function userInterface() {
     const itemList = document.getElementById("itemList");
     let projects = [] 
     let today = new Project("Today");
-    let thisWeek = new Project("This Week");
     
     lP();
     projectList();
+    updateToday();
     
     const todayLink = document.getElementById("today");
-    const weekLink = document.getElementById("week");
     const addTool = document.getElementById("addNewProject")
 
     todayLink.addEventListener("click", () => activateProject(today))
-    weekLink.addEventListener("click", () => activateProject(thisWeek))
     addTool.addEventListener("click", () => addProject())
 
     //Renders list of projects
@@ -84,8 +82,14 @@ function userInterface() {
         const newItemText = document.createElement("div");
         const name = paragraph(item.name);
         const description = paragraph(item.description)
-        const date = paragraph(item.date);
+        const date = new Date(item.date);
         const remove = paragraph("X");
+
+        const dateDay = format(date, 'do');
+        const dateMonth = format(date, 'MMM');
+        const dateString = `${dateMonth} ${dateDay}`
+
+        const dateText = paragraph(dateString)
 
         newItem.classList.add("renderedItem")
         newItemText.classList.add("renderedItemText");
@@ -93,10 +97,9 @@ function userInterface() {
         newItemText.appendChild(name)
         newItemText.appendChild(description)
         newItem.appendChild(newItemText);
-        newItem.appendChild(date)
+        newItem.appendChild(dateText)
         newItem.appendChild(remove);
         remove.addEventListener("click", () => deleteItem(newItem,project,item))
-        console.log(project.items)
         return newItem;
     }
 
@@ -141,20 +144,19 @@ function userInterface() {
 
     //Creates a new item using information in the popup window.
     function newListItem(project) {
-        
         const content = document.getElementById("creationWindow");
         const item = new ListItem(document.getElementById("title").value,
             document.getElementById("description").value,
-            document.getElementById("date").value);
+            document.getElementById("date").value + " 00:00");
 
         if (item.title === "" || item.description === "" || item.date === "") {
             alert("Please complete all forms.");
             return;
         }
-
         content.removeChild(content.firstChild);
         project.items.push(item);
         activateProject(project);
+        updateToday();
         sP();
     }
 
@@ -190,7 +192,6 @@ function userInterface() {
         window.appendChild(input)
         window.appendChild(cancel)
         projectsFolder.appendChild(window);
-       
     }
 
     //Edit Project name
@@ -266,7 +267,7 @@ function userInterface() {
 
         projectList();
     }
-    //START HERE updating today
+
     //Adds any projects on today's date to today list
     function updateToday() {
         projects.forEach(e => 
@@ -274,12 +275,8 @@ function userInterface() {
         )
         function checkForToday(project) {
             project.items.forEach(item => {
-                let date = new Date();
-                console.log(date)
-                date = date.setHours(date.getHours() - 3)
-                console.log(typeof(date),date,isToday(date))
-                console.log(date.toUTCString())
-                if (item.date === todaysDate) {
+                console.log(today.items.indexOf(item), isToday(new Date(item.date)))
+                  if (isToday(new Date(item.date)) === true && today.items.indexOf(item) === -1) {
                     today.items.push(item)
                     sP();
                 }
@@ -323,8 +320,6 @@ function userInterface() {
     //Load Projects
     function lP(){
         projects = JSON.parse(localStorage.getItem('storedProjects'))
-        projectList();
-        updateToday();
     }
 
 }

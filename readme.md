@@ -5,8 +5,20 @@ This application is for The Odin Project's "To Do List" Project.
 My goal with this project is to demonstrate proficiency with webpack, npm, modules, object oriented programming, etc.
 
 -----------
+Version 0.9
+-----------
+
+The application is mostly in working order. This week has been removed. The folder for "Today" automatically adds any tasks that are scheduled for the current day.
+
+Needs:
+
+- Ability to edit item
+- updates list when item is deleted from today
+- style
+
+-----------
 Version 0.8
-------------
+-----------
 
 The application allows users to delete items.
 
