@@ -5,6 +5,28 @@ This application is for The Odin Project's "To Do List" Project.
 My goal with this project is to demonstrate proficiency with webpack, npm, modules, object oriented programming, etc.
 
 -----------
+Version 1.0
+-----------
+
+The application functions as it should on a basic level. The application can:
+
+- Add and delete projects
+- Add and delete tasks for each project (Title, description, date)
+- Append tasks to "Today" if the date is appropriate
+- Edit a project name
+- Remove items from "Today" if parent project does not exist.
+
+So far after some testing no errors seem to be present.
+
+Needs:
+
+- Code Cleanup
+- The ability to set priority
+- Add a feature that expands a task to see / edit details
+- Highlight current project in the menu
+- Style
+
+-----------
 Version 0.9
 -----------
 
@@ -15,6 +37,7 @@ Needs:
 - Ability to edit item
 - updates list when item is deleted from today
 - style
+- remove item from today when parent project does not exist
 
 -----------
 Version 0.8
