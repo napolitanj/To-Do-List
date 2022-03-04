@@ -1,3 +1,3 @@
-import userInterface from './interface'
+import userInterface from "./interface";
 
 userInterface();
