@@ -27,8 +27,8 @@ function userInterface() {
 
     icons.style.display = "block";
 
-    editIcon.src = "../dist/images/edit.png";
-    trashIcon.src = "../dist/images/trash.png";
+    editIcon.src = "dist/images/edit.png";
+    trashIcon.src = "dist/images/trash.png";
 
     editIcon.addEventListener("click", () => editProjectName(project));
     trashIcon.addEventListener("click", () => deleteProjectPrompt(project));
