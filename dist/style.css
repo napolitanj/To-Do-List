@@ -72,17 +72,24 @@ button {
     flex-direction:row;
     align-items:center;
     gap:20px;
+    border-bottom:4px solid white;
+    margin-bottom:20px;
+    margin-right:20px;
 }
 
 .menuItem {
     font-size:24px;
     padding:10px;
+    display:flex;
+    align-items:center;
 }
 
 .menuItem:hover, .addProject:hover{
     cursor:pointer;
     background-color:#333333;
     transform: translateY(2px);
+    border: 2px;
+    border-radius:3px;
 }
 
 .menuItem:active {
@@ -151,7 +158,8 @@ button {
     display:flex;
     flex-direction:row;
     justify-content:space-between;
-    gap:10px;    
+    gap:10px;
+    margin-right:20px;    
 }
 
 .renderedItem:hover{

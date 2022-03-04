@@ -5,6 +5,12 @@ This application is for The Odin Project's "To Do List" Project.
 My goal with this project is to demonstrate proficiency with webpack, npm, modules, object oriented programming, etc.
 
 -----------
+Version 1.1
+-----------
+
+Some styling changed, code cleanup. Can no longer add to Today project - instead today simply renders any items added to projects that are for todays date.
+
+-----------
 Version 1.0
 -----------
 

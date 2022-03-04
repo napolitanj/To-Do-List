@@ -7,13 +7,9 @@ function userInterface() {
   const projectsFolder = document.getElementById("projectsFolder");
   const itemList = document.getElementById("itemList");
   const today = new Project("Today");
-  let projects = [today];
-
   const todayLink = document.getElementById("today");
   const addTool = document.getElementById("addNewProject");
-
-  todayLink.addEventListener("click", () => activateProject(today));
-  addTool.addEventListener("click", () => addProject());
+  let projects = [];
 
   // Renders list of projects
   function projectList() {
@@ -74,11 +70,13 @@ function userInterface() {
 
   // Creates button in the Project Window to add a new item
   function newItem(project) {
-    const newItem = document.createElement("p");
-    newItem.classList.add("addProject");
-    newItem.textContent = "+ Add New";
-    newItem.addEventListener("click", () => creationWindow(project));
-    return newItem;
+    if (project !== today) {
+      const newItem = document.createElement("p");
+      newItem.classList.add("addProject");
+      newItem.textContent = "+ Add New";
+      newItem.addEventListener("click", () => creationWindow(project));
+      return newItem;
+    }
   }
 
   // Renders item created by popup window
@@ -117,13 +115,11 @@ function userInterface() {
     const deletedItem = item;
     project.items = project.items.filter((item) => item !== deletedItem);
     itemList.removeChild(e);
-    console.log(deletedItem);
 
     projects.forEach((e) => deleteFromToday(e));
     function deleteFromToday(project) {
       project.items.forEach((f) => {
         if (f === deletedItem) {
-          console.log(f),
             (project.items = project.items.filter((f) => f !== deletedItem));
         }
       });
@@ -168,39 +164,22 @@ function userInterface() {
 
   // Creates a new item using information in the popup window.
   function newListItem(project) {
-    if (project !== today) {
-      const item = new ListItem(
-        document.getElementById("title").value,
-        document.getElementById("description").value,
-        `${document.getElementById("date").value  } 00:00`
-      );
+    const item = new ListItem(
+      document.getElementById("title").value,
+      document.getElementById("description").value,
+      `${document.getElementById("date").value  } 00:00`
+    );
 
-      if (item.title === "" || item.description === "" || item.date !== Date) {
-        alert("Please complete all forms.");
-        return;
-      }
-      cancelCreation();
-      project.items.push(item);
-      activateProject(project);
-      updateToday();
-      sP();
-    } else {
-      const item = new ListItem(
-        document.getElementById("title").value,
-        document.getElementById("description").value,
-        startOfToday()
-      );
-
-      if (item.title === "" || item.description === "") {
-        alert("Please complete all forms.");
-        return;
-      }
-      cancelCreation();
-      project.items.push(item);
-      activateProject(project);
-      updateToday();
-      sP();
+    if (item.title === "" || item.description === "" || item.date === " 00:00") {
+      console.log(item)
+      alert("Please complete all forms.");
+      return;
     }
+    cancelCreation();
+    project.items.push(item);
+    activateProject(project);
+    updateToday();
+    sP(); 
   }
 
   // Function for adding a project
@@ -212,7 +191,7 @@ function userInterface() {
 
     cancel.textContent = "X";
     cancel.style.fontSize='20px';
-    cancel.style.fontWeight='bold';
+    cancel.style.fontWeight='20px';
     cancel.addEventListener("click", () => cancelButton());
 
     window.classList.add("projectInputWindow");
@@ -377,13 +356,17 @@ function userInterface() {
     if (projectCollection) {
       projects = projectCollection;
     } else {
-      projects = [today]
+      projects = []
+      
     }
     projectList();
     updateToday();
     activateProject(today);
   }
 
+  todayLink.addEventListener("click", () => activateProject(today));
+  addTool.addEventListener("click", () => addProject());
+  
   lP();  
 }
 
