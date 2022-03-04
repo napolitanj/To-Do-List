@@ -40,7 +40,7 @@ button {
     min-width:250px;
     max-width:400px;
     height:100%;
-    min-height:1000px;
+    min-height:100vh;
     padding-left:20px;
     padding-right:50px;
 

@@ -3,6 +3,7 @@ import Project from "./project";
 import ListItem from "./listItem";
 
 function userInterface() {
+  
   // Initialization
   const projectsFolder = document.getElementById("projectsFolder");
   const itemList = document.getElementById("itemList");
@@ -116,14 +117,21 @@ function userInterface() {
     project.items = project.items.filter((item) => item !== deletedItem);
     itemList.removeChild(e);
 
-    projects.forEach((e) => deleteFromToday(e));
     function deleteFromToday(project) {
       project.items.forEach((f) => {
         if (f === deletedItem) {
             (project.items = project.items.filter((f) => f !== deletedItem));
+            itemList.removeChild(e);
+        }
+      });
+      today.items.forEach((f) => {
+        if (f === deletedItem) {
+            (today.items = today.items.filter((f) => f !== deletedItem));
+            itemList.removeChild(e);
         }
       });
     }
+    projects.forEach((e) => deleteFromToday(e));
     sP();
   }
 
